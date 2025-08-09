@@ -8,6 +8,7 @@ const p = path.join(appPath, "data", "products.json");
 
 module.exports = class Product {
   constructor(title, imageUrl, description, price) {
+    this.id = Math.random().toString(); // dummy ID 'generator'
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -17,7 +18,10 @@ module.exports = class Product {
   static async #loadData() {
     try {
       const data = await fs.readFile(p);
-      console.log(JSON.parse(data));
+      console.log(
+        "console.log() in 'models/product.js' path:",
+        JSON.parse(data)
+      );
       return JSON.parse(data);
     } catch (error) {
       // if products.json file does not exist
@@ -45,5 +49,13 @@ module.exports = class Product {
   static async fetchAll() {
     const products = await Product.#loadData();
     return products;
+  }
+
+  static async findById(id) {
+    const products = await Product.#loadData();
+
+    const filteredProduct = products.find((product) => product.id === id);
+    console.log(filteredProduct);
+    return filteredProduct;
   }
 };
