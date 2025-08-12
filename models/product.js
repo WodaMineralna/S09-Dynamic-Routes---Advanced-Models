@@ -15,16 +15,14 @@ module.exports = class Product {
     this.price = price;
   }
 
+  // ^ get the current available products data
   static async #loadData() {
     try {
       const data = await fs.readFile(p);
-      console.log(
-        "console.log() in 'models/product.js' path:",
-        JSON.parse(data)
-      );
+      // console.log("console.log() in 'models/product.js':", JSON.parse(data)); // DEBUGGING
       return JSON.parse(data);
     } catch (error) {
-      // if products.json file does not exist
+      // * if products.json file does not exist
       if (error.code === "ENOENT") {
         let products = [];
         await fs.writeFile(p, JSON.stringify(products));
