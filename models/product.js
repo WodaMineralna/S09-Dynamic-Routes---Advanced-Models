@@ -33,9 +33,24 @@ module.exports = class Product {
     }
   }
 
-  async save() {
+  async save(id) {
     const products = await Product.#loadData(); // getting the current products
-    products.push(this); // pushing the newly created product into the local Array
+
+    // * if 'id' was provided when calling the save() method, it means the Products were meant to be updated
+    if (id !== undefined) {
+      const existingProductIndex = products.findIndex(
+        (product) => product.id === id
+      );
+
+      Object.assign(products[existingProductIndex], {
+        title: this.title,
+        imageUrl: this.imageUrl,
+        description: this.description,
+        price: this.price,
+      });
+    } else {
+      products.push(this); // pushing the newly created product into the local Array
+    }
 
     // ^ writing all of the products into the products.json file
     fs.writeFile(p, JSON.stringify(products), (err) => {
