@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Cart = require("../models/cart");
 
 exports.getProductsPage = async (req, res, next) => {
   const products = await Product.fetchAll();
@@ -29,16 +30,35 @@ exports.getIndex = async (req, res, next) => {
   });
 };
 
-exports.getCart = (req, res, next) => {
+exports.getCart = async (req, res, next) => {
+  const cart = await Cart.fetchAll(); // contains only item ID and item quantity
+  const products = [];
+
+  for (const item of cart) {
+    const filteredItem = await Product.findById(item.id); // ^ fetch the full cart item data
+    // console.log(filteredItem); // DEBUGGING
+    products.push({
+      ...filteredItem,
+      quantity: item.quantity,
+      totalPrice: Number((filteredItem.price * item.quantity).toFixed(2)),
+    });
+  }
+
+  console.log(products); // DEBUGGING
+
   res.render("shop/cart", {
+    products,
     path: "/cart",
     pageTitle: "Your Cart",
   });
 };
 
-exports.postCart = (req, res, next) => {
+exports.postCart = async (req, res, next) => {
   const prodId = req.body.productId;
-  console.log(prodId)
+  console.log(prodId);
+
+  await Cart.addProduct(prodId);
+
   res.redirect("/cart");
 };
 
