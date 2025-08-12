@@ -55,7 +55,17 @@ module.exports = class Product {
     const products = await Product.#loadData();
 
     const filteredProduct = products.find((product) => product.id === id);
-    console.log(filteredProduct);
+
+    // ^ error handler - if the item ID got corrupted / deleted / etc
+    if (!filteredProduct) {
+      return {
+        id: "undefined",
+        title: "Item not found!",
+        description: "Item not found!",
+        price: 0,
+      };
+    }
+    // console.log(filteredProduct); // DEBUGGING
     return filteredProduct;
   }
 };
