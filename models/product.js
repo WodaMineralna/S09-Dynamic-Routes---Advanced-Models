@@ -8,7 +8,7 @@ const p = path.join(appPath, "data", "products.json");
 
 module.exports = class Product {
   constructor(title, imageUrl, description, price) {
-    this.id = Math.random().toString(); // dummy ID 'generator'
+    this.id = Math.floor(Math.random() * 100000); // dummy pseudo-random ID
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
