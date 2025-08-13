@@ -58,6 +58,16 @@ module.exports = class Product {
     });
   }
 
+  static async deleteProduct(id) {
+    const products = await Product.#loadData(); // get the current products
+    const filteredProducts = products.filter((product) => product.id !== id);
+
+    // ^ write all of the product data into the file
+    fs.writeFile(p, JSON.stringify(filteredProducts), (err) => {
+      console.log(err);
+    });
+  }
+
   // * 'static', so we can call this method directly on the Class itself - not on the single instance of the 'Product'
   static async fetchAll() {
     const products = await Product.#loadData();
