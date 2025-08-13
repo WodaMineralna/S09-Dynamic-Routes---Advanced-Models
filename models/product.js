@@ -82,7 +82,7 @@ module.exports = class Product {
     // ^ error handler - if the item ID got corrupted / deleted / etc
     if (!filteredProduct) {
       return {
-        id: "undefined",
+        id,
         title: "Item not found!",
         description: "Item not found!",
         price: 0,
