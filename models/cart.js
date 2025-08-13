@@ -6,6 +6,8 @@ const appPath = require("../util/path");
 // products.json path directory
 const p = path.join(appPath, "data", "cart.json");
 
+// TODO add try-catch blocks here and in Product model
+
 module.exports = class Cart {
   static async addProduct(id) {
     const cart = await Cart.#loadData(); // get the current cart data
@@ -19,6 +21,16 @@ module.exports = class Cart {
 
     // ^ write all of the cart data into the file
     fs.writeFile(p, JSON.stringify(cart), (err) => {
+      console.log(err);
+    });
+  }
+
+  static async deleteCartItem(id) {
+    const cart = await Cart.#loadData(); // get the current cart data
+    const filteredCart = cart.filter((item) => item.id !== id);
+
+    // ^ write all of the cart data into the file
+    fs.writeFile(p, JSON.stringify(filteredCart), (err) => {
       console.log(err);
     });
   }
