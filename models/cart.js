@@ -1,7 +1,12 @@
 const path = require("path");
-const fs = require("fs").promises;
 
 const appPath = require("../utils/path");
+const {
+  loadData,
+  deleteItem,
+  saveData,
+  findExistingProductIndex,
+} = require("../utils/file-storage");
 
 // products.json path directory
 const p = path.join(appPath, "data", "cart.json");
@@ -10,8 +15,8 @@ const p = path.join(appPath, "data", "cart.json");
 
 module.exports = class Cart {
   static async addProduct(id) {
-    const cart = await Cart.#loadData(); // get the current cart data
-    const existingProductIndex = cart.findIndex((item) => item.id === id); // check if the cartItem already exists
+    const cart = await loadData(p); // get the current cart data
+    const existingProductIndex = findExistingProductIndex(cart, id); // check if the cartItem already exists
 
     if (existingProductIndex !== -1) {
       cart[existingProductIndex].quantity++; // increase quantity if the cartItem already exists
@@ -20,41 +25,15 @@ module.exports = class Cart {
     }
 
     // ^ write all of the cart data into the file
-    fs.writeFile(p, JSON.stringify(cart), (err) => {
-      console.log(err);
-    });
+    await saveData(p, cart);
   }
 
   static async deleteCartItem(id) {
-    const cart = await Cart.#loadData(); // get the current cart data
-    const filteredCart = cart.filter((item) => item.id !== id);
-
-    // ^ write all of the cart data into the file
-    fs.writeFile(p, JSON.stringify(filteredCart), (err) => {
-      console.log(err);
-    });
-  }
-
-  // ^ get the current cart data
-  static async #loadData() {
-    try {
-      const data = await fs.readFile(p);
-      console.log("console.log() in 'models/cart.js':", JSON.parse(data)); // DEBUGGING
-      return JSON.parse(data);
-    } catch (error) {
-      // * if cart.json file does not exist
-      if (error.code === "ENOENT") {
-        let cart = [];
-        await fs.writeFile(p, JSON.stringify(cart));
-        return JSON.parse(cart);
-      } else {
-        throw error;
-      }
-    }
+    await deleteItem(p, id);
   }
 
   static async fetchAll() {
-    const cart = await Cart.#loadData();
+    const cart = await loadData(p);
     return cart;
   }
 };
