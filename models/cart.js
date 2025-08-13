@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs").promises;
 
-const appPath = require("../util/path");
+const appPath = require("../utils/path");
 
 // products.json path directory
 const p = path.join(appPath, "data", "cart.json");
