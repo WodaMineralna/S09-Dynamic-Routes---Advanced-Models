@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-// ^ get the current data, based on filePath passed as an argument
+// ^ get current data, based on filePath passed as an argument
 async function loadData(filePath) {
   try {
     const data = await fs.readFile(filePath);
@@ -18,10 +18,10 @@ async function loadData(filePath) {
 }
 
 async function deleteItem(filePath, id) {
-  const items = await loadData(filePath); // get the current items
+  const items = await loadData(filePath); // get current items from specified file path
   const filteredItems = items.filter((item) => item.id !== id);
 
-  // ^ write all of the product data into the file
+  // ^ write all of the data into specified file path
   await saveData(filePath, filteredItems);
 }
 
