@@ -27,7 +27,10 @@
                             </div>
                             <div class="card__actions">
                                 <a href="/products/<%= product.id %>" class="btn">Details</a>
-                                <%- include('../includes/add-to-cart.ejs', { product }) %>
+                                <form action="/cart/delete/<%= product.id %>" method="post">
+                                    <button class="btn" type="submit">Remove</button>
+                                    <input type="hidden" name="productId" value="<%= product.id %>">
+                                  </form>
                             </div>
                         </article>
                         <% } %>
