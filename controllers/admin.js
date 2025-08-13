@@ -45,6 +45,14 @@ exports.postEditProduct = async (req, res, next) => {
   res.redirect("/");
 };
 
+exports.postDeleteProduct = async (req, res, next) => {
+  const prodId = req.body.productId;
+
+  await Product.deleteProduct(prodId);
+
+  res.redirect("/admin/products");
+};
+
 exports.getProductsPage = async (req, res, next) => {
   const products = await Product.fetchAll();
   res.render("admin/products", {
