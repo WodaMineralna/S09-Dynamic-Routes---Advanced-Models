@@ -86,6 +86,7 @@ module.exports = class Product {
         title: "Item not found!",
         description: "Item not found!",
         price: 0,
+        wasDeleted: true,
       };
     }
     // console.log(filteredProduct); // DEBUGGING
