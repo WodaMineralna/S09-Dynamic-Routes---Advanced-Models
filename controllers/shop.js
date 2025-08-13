@@ -55,7 +55,9 @@ exports.getCart = async (req, res, next) => {
 
 exports.postCart = async (req, res, next) => {
   const prodId = req.body.productId;
-  console.log(prodId);
+  console.log(
+    `console.log() in 'controllers/shop.js: ${prodId} - added productId`
+  ); // DEBUGGING
 
   await Cart.addProduct(prodId);
 
