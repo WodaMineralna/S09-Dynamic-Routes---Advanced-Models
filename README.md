@@ -15,7 +15,6 @@ This project covers:
 - JavaScript (ES6+)
 - Dynamic Routes
 - Advanced MVC Models
-- Build Tool - Node.js
 ## How to Run
 
 ```bash
