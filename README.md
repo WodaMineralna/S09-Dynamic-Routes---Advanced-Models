@@ -7,7 +7,7 @@ This project covers:
 - Designing advanced MVC data models
 
 # Project type
-- Implemented as part of a guided course project, with additional features and customizations added independently.
+- Independently implemented while following a Node.js course, writing functionalities from scratch and extending the project with personal improvements.
 
 ## Tech Stack
 - Node.js
