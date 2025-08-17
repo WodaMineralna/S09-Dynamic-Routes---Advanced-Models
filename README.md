@@ -6,8 +6,8 @@ This project covers:
 - Implementing dynamic routes in Express
 - Designing advanced MVC data models
 
-## 💡 Workflow & Git Practices
-**✍️ From this project onward, I started applying _Conventional Commits_ practices:**
+## Workflow & Git Practices
+**From this project onward, I started applying _Conventional Commits_ practices:**
 - Using commit prefixes (feat, fix, docs, etc.) with scopes
 - Writing commit messages in imperative style
 - Adding clear, detailed descriptions for better project history
